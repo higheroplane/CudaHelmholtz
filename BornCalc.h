@@ -13,7 +13,7 @@ const double         PI_ = 3.14159      ;
 //-----------------------------------------------------------------
 
 double complex BornForPoint  (Point3D r, Point3D rj);
-double complex GreenFunction (Point3D r            );
+double complex GreenFunction (Point3D r, double c  );
 double complex PressureI_    (Point3D r            );
 double         c             (Point3D r            );
 
@@ -21,11 +21,11 @@ double         c             (Point3D r            );
 
 double complex BornForPoint (Point3D r, Point3D rj)
 {
-    Point3D r0 = {rj.x - r.x, rj.y - r.y, rj.z - r.z};
-    return (DATA.w_ * DATA.w_) * PressureI_ (r) * ((1 / c (r)) * (1 / c (r))) * GreenFunction (c (r), r0);
+    Point3D dr = {rj.x - r.x, rj.y - r.y, rj.z - r.z};
+    return (DATA.w_ * DATA.w_) * PressureI_ (r) * ((1 / c (r)) * (1 / c (r))) * GreenFunction (c (r), dr);
 }
 
-double complex GreenFunction (Point3D r)
+double complex GreenFunction (Point3D r, double c)
 {
     double k = DATA.w_ / c (r);
     if (r.Len() == 0.0) return 0.0 + 0.0 * I;
@@ -34,7 +34,7 @@ double complex GreenFunction (Point3D r)
 
 double complex PressureI_ (Point3D r)
 {
-   return  GreenFunction (r);
+   return  GreenFunction (r, c (r));
 }
 
 double c (Point3D r)
