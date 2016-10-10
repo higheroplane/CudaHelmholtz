@@ -28,7 +28,7 @@ double complex BornForPoint (Point3D r, Point3D rj)
 double complex GreenFunction (Point3D r)
 {
     double k = DATA.w_ / c (r);
-    if (r.Len() == 0) return 0.0 + 0.0 * I;
+    if (r.Len() == 0.0) return 0.0 + 0.0 * I;
     else return exp (I_ * r.Len() * k) / (4 * PI_ * r.Len());
 }
 
